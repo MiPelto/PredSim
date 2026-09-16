@@ -17,12 +17,12 @@ addpath(fullfile(pathRepo,'DefaultSettings'))
 
 %% Initialize S
 
-[S] = initializeSettings('Falisse_et_al_2022');
+[S] = initializeSettings('gait1018_esmac');
 
 %% Settings
 
 % name of the subject
-S.subject.name = 'Falisse_et_al_2022';
+S.subject.name = 'gait1018_esmac';
 
 % path to folder where you want to store the results of the OCP
 S.misc.save_folder  = fullfile(pathRepoFolder,'PredSimResults',S.subject.name); 
@@ -38,6 +38,9 @@ osim_path = fullfile(pathRepo,'Subjects',S.subject.name,[S.subject.name '.osim']
 
 %% Run predictive simulations
 
+% >>> add this line <
+S.OpenSimADOptions.verbose_mode = true;
+
 [savename] = runPredSim(S, osim_path);
 
 
@@ -48,7 +51,7 @@ if (~S.solver.run_as_batch_job)
 
     % set path to reference result
     result_paths{1} = fullfile(pathRepo,'Tests','ReferenceResults',...
-        'Falisse_et_al_2022','Falisse_et_al_2022_paper.mat');
+   'gait1018_esmac','gait1018_esmac_reference.mat');
     
     % set path to saved result
     result_paths{2} = fullfile(S.misc.save_folder,[savename '.mat']);
